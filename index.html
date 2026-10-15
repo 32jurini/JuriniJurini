@@ -1,1 +1,639 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shadow Realms | Game Overview</title>
+<style>
+:root {
+  --bg: #030504;
+  --panel: #070b08;
+  --green: #20f477;
+  --green2: #8dffb4;
+  --line: #12663b;
+  --muted: #a8b8ad;
+  --white: #edf8f0;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+}
+button, a { font: inherit; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; }
+
+.page {
+  width: min(1250px, calc(100% - 32px));
+  margin: 24px auto 0;
+  position: relative;
+  z-index: 1;
+}
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border: 1px solid var(--green);
+  border-radius: 8px;
+  background: #000;
+  box-shadow: 0 0 22px #00ff6620;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--green);
+  font-size: 25px;
+  font-weight: 800;
+}
+.brand-icon { font-size: 30px; }
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid var(--green);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--green);
+  font-weight: bold;
+  transition: .2s;
+}
+.button:hover, .button:focus-visible {
+  background: var(--green);
+  color: #001b0a;
+  box-shadow: 0 0 20px #20f47745;
+}
+
+.main-card {
+  margin-top: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+}
+.hero {
+  display: grid;
+  grid-template-columns: .95fr 1.1fr;
+  gap: 30px;
+  padding: 20px;
+  align-items: center;
+}
+.cover {
+  position: relative;
+  min-height: 260px;
+  overflow: hidden;
+  border: 1px solid #173c29;
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 70% 25%, #72ff91 0, #226a3a 10%, transparent 28%),
+    linear-gradient(140deg, #081b15, #152d22 50%, #030705);
+}
+.cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #020805, transparent 65%);
+}
+.moon {
+  position: absolute;
+  right: 23%;
+  top: 10%;
+  width: 90px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #8cff9e;
+  box-shadow: 0 0 45px #28ff7255;
+}
+.mountain {
+  position: absolute;
+  bottom: 0;
+  left: -8%;
+  width: 120%;
+  height: 58%;
+  background: #08150f;
+  clip-path: polygon(0 65%,12% 30%,24% 55%,37% 10%,50% 56%,65% 17%,80% 48%,92% 24%,100% 60%,100% 100%,0 100%);
+}
+.castle {
+  position: absolute;
+  right: 18%;
+  bottom: 19%;
+  width: 22%;
+  height: 42%;
+  background: #07120c;
+  clip-path: polygon(0 100%,0 42%,12% 42%,12% 25%,23% 25%,23% 0,32% 0,32% 34%,43% 34%,43% 16%,54% 16%,54% 40%,67% 40%,67% 8%,77% 8%,77% 46%,100% 46%,100% 100%);
+}
+.wanderer {
+  position: absolute;
+  left: 24%;
+  bottom: 12%;
+  width: 26px;
+  height: 68px;
+  background: #020705;
+  clip-path: polygon(30% 0,70% 0,88% 22%,72% 35%,100% 100%,56% 82%,36% 100%,20% 51%,0 88%,13% 30%);
+}
+.cover-title {
+  position: absolute;
+  top: 12%;
+  left: 7%;
+  color: #eaffdf;
+  font-family: Georgia, serif;
+  font-size: 30px;
+  line-height: 1.05;
+  letter-spacing: 2px;
+}
+.hero-copy h1 {
+  margin: 0 0 6px;
+  color: var(--green);
+  font-size: clamp(29px, 3vw, 38px);
+}
+.tagline {
+  margin: 8px 0 16px;
+  color: var(--green2);
+  font-size: 19px;
+}
+.description {
+  color: #c1d0c8;
+  font-size: 16px;
+  line-height: 1.65;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  margin-top: 20px;
+  color: var(--green2);
+  font-weight: bold;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid #163c28;
+  border-bottom: 1px solid var(--green);
+}
+.tab {
+  min-height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 8px;
+  border: 0;
+  border-right: 1px solid #102719;
+  background: #020403;
+  color: var(--green);
+  font-weight: bold;
+  transition: .2s;
+}
+.tab:hover { background: #0b2414; }
+.tab[aria-selected="true"] {
+  background: var(--green);
+  color: #001b0a;
+  box-shadow: 0 0 20px #20f47735;
+}
+.tab-icon { font-size: 20px; }
+
+.content {
+  padding: 26px 30px 24px;
+  min-height: 330px;
+}
+.overview-grid {
+  display: grid;
+  grid-template-columns: 1.12fr .95fr;
+  gap: 34px;
+}
+.download-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 8px 18px 18px 0;
+}
+.download-panel h2, .section-title {
+  align-self: flex-start;
+  margin: 0 0 18px;
+  color: var(--green);
+  font-size: 24px;
+}
+.status-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #001b0a;
+  font-size: 21px;
+  font-weight: bold;
+}
+.download-status {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #c2d1c8;
+  max-width: 500px;
+}
+.download-status strong {
+  display: block;
+  color: var(--green);
+  font-size: 22px;
+  margin: 8px 0 3px;
+}
+.primary-action {
+  margin-top: 24px;
+  min-width: 185px;
+  min-height: 50px;
+}
+.dlc-panel {
+  border-left: 1px solid #16452d;
+  padding-left: 30px;
+}
+.dlc-panel h2, .tab-page h2 {
+  margin: 2px 0 5px;
+  color: var(--green);
+  font-size: 24px;
+}
+.subtext {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.dlc-list { display: flex; flex-direction: column; }
+.dlc-item {
+  display: grid;
+  grid-template-columns: 94px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px;
+  padding: 11px 0;
+  border-top: 1px solid #143322;
+}
+.dlc-thumb {
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #214531;
+  border-radius: 6px;
+  font-size: 28px;
+  background: radial-gradient(circle at 65% 25%, #4eaa62, #132d1e 45%, #050a07);
+}
+.dlc-item:nth-child(2) .dlc-thumb {
+  background: radial-gradient(circle, #b64a26, #4b1b14 55%, #090605);
+}
+.dlc-item:nth-child(3) .dlc-thumb {
+  background: radial-gradient(circle, #4c728a, #1b2a39 55%, #05070a);
+}
+.dlc-name {
+  color: var(--green2);
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.dlc-desc {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.dlc-buy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.price { color: var(--green2); font-size: 14px; }
+
+.hidden { display: none !important; }
+.tab-page p { color: #c1d0c8; line-height: 1.65; }
+.review-summary {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 18px;
+  border: 1px solid #17472e;
+  border-radius: 8px;
+  background: #07100a;
+}
+.score { color: var(--green); font-size: 40px; font-weight: 800; }
+.stars { color: var(--green); letter-spacing: 3px; }
+.review, .version {
+  padding: 16px;
+  border: 1px solid #17472e;
+  border-radius: 8px;
+  background: #060b07;
+}
+.review { margin-top: 14px; }
+.review h3, .version h3 { color: var(--green2); margin-top: 0; }
+.version-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+.version .price { font-size: 20px; font-weight: bold; }
+.notice { color: var(--muted); font-size: 13px; margin-top: 18px; }
+
+.pixel-ground {
+  height: 155px;
+  margin-top: 0;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(transparent, #020503 80%);
+}
+.pixel-ground::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(90deg, transparent 0 25px, #1eff5a 25px 37px, transparent 37px 53px),
+    linear-gradient(0deg, #1aff59 0 12px, transparent 12px 26px);
+  background-size: 61px 37px, 47px 42px;
+  background-position: 0 100%, 20px 100%;
+  mask-image: linear-gradient(to top, black, transparent 86%);
+}
+.pixel-ground::after {
+  content: "";
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: 12px;
+  height: 75px;
+  background: #20f477;
+  clip-path: polygon(0 75%,4% 75%,7% 25%,10% 60%,13% 80%,17% 40%,20% 80%,26% 80%,30% 15%,34% 80%,40% 80%,45% 35%,49% 78%,56% 78%,61% 10%,65% 75%,70% 75%,74% 35%,78% 78%,83% 78%,88% 20%,92% 75%,96% 75%,100% 45%,100% 100%,0 100%);
+  filter: drop-shadow(0 0 10px #20f477);
+  opacity: .8;
+}
+.footer {
+  text-align: center;
+  color: #648271;
+  font-size: 12px;
+  padding: 0 12px 24px;
+}
+@media(max-width:800px) {
+  .hero, .overview-grid { grid-template-columns: 1fr; }
+  .cover { min-height: 230px; }
+  .dlc-panel { border-left: 0; border-top: 1px solid #16452d; padding: 24px 0 0; }
+  .download-panel { padding-right: 0; }
+  .version-list { grid-template-columns: 1fr; }
+}
+@media(max-width:540px) {
+  .page { width: calc(100% - 20px); margin-top: 10px; }
+  .brand { font-size: 18px; gap: 8px; }
+  .brand-icon { font-size: 24px; }
+  .topbar { padding: 10px; }
+  .topbar .button { padding: 8px; font-size: 12px; }
+  .hero { padding: 13px; }
+  .cover { min-height: 195px; }
+  .content { padding: 22px 15px; }
+  .tab { flex-direction: column; gap: 4px; font-size: 12px; min-height: 65px; }
+  .dlc-item { grid-template-columns: 66px minmax(0, 1fr); gap: 10px; }
+  .dlc-thumb { height: 60px; }
+  .dlc-buy {
+    grid-column: 2;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .dlc-buy .button { padding: 6px 10px; }
+  .meta { gap: 13px; font-size: 14px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="topbar">
+    <a class="brand" href="#">
+      <span class="brand-icon">🎮</span>
+      <span>Shadow Realms</span>
+    </a>
+    <a class="button" href="#download" id="aboutButton">⬇ About Game</a>
+  </header>
+
+  <main class="main-card">
+    <section class="hero">
+      <div class="cover" role="img" aria-label="Fantasy landscape with a green moon and castle">
+        <div class="moon"></div>
+        <div class="mountain"></div>
+        <div class="castle"></div>
+        <div class="wanderer"></div>
+        <div class="cover-title">SHADOW<br>REALMS</div>
+      </div>
+      <div class="hero-copy">
+        <h1 style="color:var(--green);font-size:clamp(29px,3vw,38px);margin-bottom:6px">Shadow Realms</h1>
+        <p class="tagline">Explore. Fight. Survive.</p>
+        <p class="description">
+          Enter a dark and mysterious world filled with ancient ruins,
+          powerful enemies, and untold secrets. Embark on an epic journey
+          to uncover the truth behind a forgotten kingdom — where every
+          choice matters, and survival is never guaranteed.
+        </p>
+        <div class="meta">
+          <span>🎮 Action</span>
+          <span>◈ RPG</span>
+          <span>♟ Single Player</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="tabs" role="tablist" aria-label="Game information">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="panel-overview" data-tab="overview"><span class="tab-icon">⌂</span>Overview</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-reviews" data-tab="reviews"><span class="tab-icon">★</span>Reviews</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-versions" data-tab="versions"><span class="tab-icon">▱</span>Versions</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-dlc" data-tab="dlc"><span class="tab-icon">🛒</span>DLC</button>
+    </nav>
+
+    <section class="content tab-page" id="panel-overview" role="tabpanel" data-panel="overview">
+      <div class="overview-grid">
+        <section class="download-panel" id="download">
+          <h2>Get the Game</h2>
+          <div class="status-icon" id="statusIcon">↓</div>
+          <div class="download-status" aria-live="polite">
+            <strong id="statusTitle">Ready to begin your adventure?</strong>
+            <span id="statusMessage">Get the demo or mark the game as owned to see your library state.</span>
+          </div>
+          <a class="button primary-action" id="gameAction" href="https://example.com/game-demo" target="_blank" rel="noopener noreferrer">▶ Download Demo</a>
+          <button class="button" id="ownershipToggle" type="button" style="margin-top:10px">✓ I already own this game</button>
+          <p class="notice">Replace example links with your real game download and store links.</p>
+        </section>
+
+        <section class="dlc-panel">
+          <h2>Available DLCs</h2>
+          <p class="subtext">Enhance your adventure with additional content.</p>
+          <div class="dlc-list">
+            <article class="dlc-item">
+              <div class="dlc-thumb">🌒</div>
+              <div><div class="dlc-name">The Lost City</div><div class="dlc-desc">Explore a new region with unique quests, gear, and enemies.</div></div>
+              <div class="dlc-buy"><a class="button" href="https://example.com/dlc-lost-city">Get DLC</a><span class="price">$9.99</span></div>
+            </article>
+            <article class="dlc-item">
+              <div class="dlc-thumb">⚔️</div>
+              <div><div class="dlc-name">Eternal War</div><div class="dlc-desc">Face new challenges and unlock powerful weapons.</div></div>
+              <div class="dlc-buy"><a class="button" href="https://example.com/dlc-eternal-war">Get DLC</a><span class="price">$9.99</span></div>
+            </article>
+            <article class="dlc-item">
+              <div class="dlc-thumb">🛡️</div>
+              <div><div class="dlc-name">Shadow Pack</div><div class="dlc-desc">Includes exclusive skins, items, and more!</div></div>
+              <div class="dlc-buy"><a class="button" href="https://example.com/dlc-shadow-pack">Get DLC</a><span class="price">$4.99</span></div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="content tab-page hidden" id="panel-reviews" role="tabpanel" data-panel="reviews">
+      <h2>Player Reviews</h2>
+      <div class="review-summary">
+        <div class="score">9.1<span style="font-size:16px;color:var(--muted)"> / 10</span></div>
+        <div><div class="stars">★★★★★</div><div class="subtext">Example rating — replace with real ratings</div></div>
+      </div>
+      <article class="review">
+        <h3>“A world worth getting lost in” <span class="stars">★★★★★</span></h3>
+        <p>The eerie landscapes, hidden passages, and mysterious story make exploration rewarding.</p>
+      </article>
+      <article class="review">
+        <h3>“Challenging in the best way” <span class="stars">★★★★☆</span></h3>
+        <p>Combat rewards patience and experimentation. Some encounters will test your skills.</p>
+      </article>
+      <p class="notice">These are placeholder reviews, not verified customer reviews.</p>
+    </section>
+
+    <section class="content tab-page hidden" id="panel-versions" role="tabpanel" data-panel="versions">
+      <h2>Choose Your Edition</h2>
+      <p>Compare the available editions and choose the one that fits your adventure.</p>
+      <div class="version-list">
+        <article class="version">
+          <h3>Demo</h3><div class="price">Free</div>
+          <p>Try the opening area and experience the start of the journey.</p>
+          <a class="button" href="https://example.com/game-demo">Get Demo</a>
+        </article>
+        <article class="version">
+          <h3>Standard Edition</h3><div class="price">$29.99</div>
+          <p>The base game, full campaign, and core gameplay experience.</p>
+          <a class="button" href="https://example.com/game-standard">Get Game</a>
+        </article>
+        <article class="version">
+          <h3>Complete Edition</h3><div class="price">$44.99</div>
+          <p>The base game plus expansions and bonus items.</p>
+          <a class="button" href="https://example.com/game-complete">Get Complete</a>
+        </article>
+      </div>
+      <p class="notice">Prices and links are examples. Update them to match your actual game.</p>
+    </section>
+
+    <section class="content tab-page hidden" id="panel-dlc" role="tabpanel" data-panel="dlc">
+      <h2>Downloadable Content</h2>
+      <p>Expand the Shadow Realms experience with new locations, challenges, and cosmetic items.</p>
+      <div class="version-list">
+        <article class="version">
+          <h3>🌒 The Lost City</h3><div class="price">$9.99</div>
+          <p>Discover a forgotten city, new quests, rare equipment, and hidden enemies.</p>
+          <a class="button" href="https://example.com/dlc-lost-city">Get DLC</a>
+        </article>
+        <article class="version">
+          <h3>⚔️ Eternal War</h3><div class="price">$9.99</div>
+          <p>Take on difficult combat encounters and unlock powerful weapons.</p>
+          <a class="button" href="https://example.com/dlc-eternal-war">Get DLC</a>
+        </article>
+        <article class="version">
+          <h3>🛡️ Shadow Pack</h3><div class="price">$4.99</div>
+          <p>Customize your character with exclusive skins and extra items.</p>
+          <a class="button" href="https://example.com/dlc-shadow-pack">Get DLC</a>
+        </article>
+      </div>
+      <p class="notice" id="dlcOwnershipNote">DLC availability depends on your store or platform.</p>
+    </section>
+  </main>
+</div>
+
+<div class="pixel-ground" aria-hidden="true"></div>
+<footer class="footer">Game page concept · Replace the example links, prices, and reviews before publishing.</footer>
+
+<script>
+(() => {
+  const tabs = [...document.querySelectorAll("[data-tab]")];
+  const panels = [...document.querySelectorAll("[data-panel]")];
+
+  function selectTab(name) {
+    tabs.forEach(tab => {
+      const active = tab.dataset.tab === name;
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach(panel => {
+      panel.classList.toggle("hidden", panel.dataset.panel !== name);
+    });
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => selectTab(tab.dataset.tab));
+    tab.addEventListener("keydown", event => {
+      if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let next = index;
+      if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
+      if (event.key === "ArrowLeft") next = (index - 1 + tabs.length) % tabs.length;
+      if (event.key === "Home") next = 0;
+      if (event.key === "End") next = tabs.length - 1;
+      tabs[next].focus();
+      selectTab(tabs[next].dataset.tab);
+    });
+  });
+
+  const ownedKey = "shadow-realms-owned";
+  const statusIcon = document.getElementById("statusIcon");
+  const statusTitle = document.getElementById("statusTitle");
+  const statusMessage = document.getElementById("statusMessage");
+  const gameAction = document.getElementById("gameAction");
+  const ownershipToggle = document.getElementById("ownershipToggle");
+  const dlcOwnershipNote = document.getElementById("dlcOwnershipNote");
+
+  function setOwned(owned) {
+    try {
+      localStorage.setItem(ownedKey, owned ? "true" : "false");
+    } catch (error) {}
+
+    statusIcon.textContent = owned ? "✓" : "↓";
+    statusTitle.textContent = owned
+      ? "You already own this game!"
+      : "Ready to begin your adventure?";
+    statusMessage.textContent = owned
+      ? "Your game is marked as owned in this browser. You can browse and get available DLCs below."
+      : "Get the demo or mark the game as owned to see your library state.";
+    gameAction.textContent = owned ? "▶ Open Game Library" : "▶ Download Demo";
+    gameAction.href = owned
+      ? "https://example.com/game-library"
+      : "https://example.com/game-demo";
+    ownershipToggle.textContent = owned
+      ? "↺ I do not own it yet"
+      : "✓ I already own this game";
+    dlcOwnershipNote.textContent = owned
+      ? "Game marked as owned in this browser. Use Get DLC to visit each DLC store page."
+      : "You can browse DLCs now; mark the game as owned in Overview to update your library state.";
+  }
+
+  let owned = false;
+  try {
+    owned = localStorage.getItem(ownedKey) === "true";
+  } catch (error) {}
+  setOwned(owned);
+
+  ownershipToggle.addEventListener("click", () => {
+    owned = !owned;
+    setOwned(owned);
+  });
+
+  document.getElementById("aboutButton").addEventListener("click", () => {
+    selectTab("overview");
+  });
+})();
+</script>
+</body>
+</html>
+
